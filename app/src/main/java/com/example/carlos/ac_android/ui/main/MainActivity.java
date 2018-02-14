@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements Injectable {
         TextView tvName = findViewById(R.id.tvName);
 
         userViewModel = ViewModelProviders.of(this, viewModelFactory).get(UserViewModel.class);
-        userViewModel.user.observe(this, new Observer<Resource<User>>() {
+        userViewModel.getUser().observe(this, new Observer<Resource<User>>() {
             @Override
             public void onChanged(@Nullable Resource<User> userResource) {
                 if (userResource.data != null) {

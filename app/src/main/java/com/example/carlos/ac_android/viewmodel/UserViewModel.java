@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.VisibleForTesting;
 
 import com.example.carlos.ac_android.repository.UserRepository;
 import com.example.carlos.ac_android.repository.local.entity.User;
@@ -21,7 +22,7 @@ import javax.inject.Inject;
 public class UserViewModel extends ViewModel {
 
     private MutableLiveData<Integer> login = new MutableLiveData<>();
-    public LiveData<Resource<User>> user;
+    private final LiveData<Resource<User>> user;
 
     @Inject
     public UserViewModel(UserRepository userRepository) {
@@ -35,11 +36,17 @@ public class UserViewModel extends ViewModel {
         });
     }
 
+    @VisibleForTesting
     public void setLogin(int login){
         if(Objects.equals(this.login.getValue(), login)){
             return;
         }
         this.login.setValue(login);
+    }
+
+    @VisibleForTesting
+    public LiveData<Resource<User>> getUser(){
+        return user;
     }
 
 }
